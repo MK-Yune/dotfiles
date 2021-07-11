@@ -1,0 +1,4 @@
+#!/bin/sh
+
+wallpaper="$(find "$HOME"/.local/share/wallpapers -type f -regex '.*.\(jpg\|jpeg\|png\)' | shuf -n 1)"
+xwallpaper --zoom "$wallpaper"

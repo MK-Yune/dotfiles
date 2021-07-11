@@ -1,0 +1,21 @@
+#!/bin/sh
+
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+fcitx -dr &
+
+remaps() {
+	setxkbmap -option caps:ctrl_modifier -option shift:both_capslock
+	killall xcape 2>/dev/null ; xcape -e 'Caps_Lock=Escape'
+	xset -q | grep "Caps Lock:\s*on" && xdotool key Caps_Lock
+}
+
+mpd &                # music player daemon
+remaps &
+sxhkd &              # keyboard bindings
+xset r rate 300 50 & # keyboard xrate
+unclutter &          # hide the mouse cursor when idle
+dwmblocks &          # status bar
+
+exec dwm

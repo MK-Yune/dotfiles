@@ -1,0 +1,66 @@
+super + Return
+	$TERMINAL
+super + alt + @space
+	dmenu_run
+super + equal
+	st -g "=80x20+341+192" -i -e bc --mathlib --quiet
+super + e
+	alacritty -e nvim +'cd ~/vimwiki' +VimwikiIndex
+super + w
+	$BROWSER
+super + p
+	alacritty -e calcurse
+super + shift + p
+	passmenu
+super + Print; {super + Print, s, d}
+	maim --hidecursor { , --select --nokeyboard, --select --nokeyboard --nodrag} \
+	| xclip -selection clipboard -t image/png
+super + shift + Print; {super + Print, s, d}
+	maim --hidecursor { , --select --nokeyboard, --select --nokeyboard --nodrag} \
+	| tee "$\{SCREENSHOT_DIR:~/.local/share/screenshots\}/$(date +%s).png" \
+	| xclip -selection clipboard -t image/png
+
+# System
+super + backslash ; c ; s
+	sudo modprobe -r psmouse && sudo modprobe psmouse
+super + backslash ; h ; t
+	alacritty -e htop
+super + backslash ; h ; o
+	alacritty -e sudo nvim /etc/hosts
+super + backslash ; s ; h
+	alacritty -e nvim "$ZDOTDIR/.zshrc"
+super + backslash ; v ; i
+	alacritty -e nvim "$\{XDG_CONFIG_DIR:-$HOME/.config\}/nvim/init.vim"
+
+super + shift + s
+	xset dpms force off
+XF86MonBrightnessUp + { , shift}
+	xbacklight -inc {5, 1} && kill -$((20 + 34)) $(pidof dwmblocks)
+XF86MonBrightnessDown + { , shift}
+	xbacklight -dec {5, 1} && kill -$((20 + 34)) $(pidof dwmblocks)
+XF86AudioMute
+	pamixer --toggle-mute && kill -$((10 + 34)) $(pidof dwmblocks)
+XF86AudioLowerVolume + { , shift}
+	pamixer --decrease {5, 1} && kill -$((10 + 34)) $(pidof dwmblocks)
+XF86AudioRaiseVolume + { , shift}
+	pamixer --increase {5, 1} && kill -$((10 + 34)) $(pidof dwmblocks)
+#XF86AudioMicMute
+#	pamixer --source ${arg?} --toggle-mute
+
+# Audio Control (F5 ~ F12)
+F5 + ctrl + { , shift}
+	mpc {seek -5, prev}
+F6 + ctrl
+	mpc toggle
+F7 + ctrl + { , shift}
+	mpc {seek +5, next}
+F8 + super
+	alacritty -e ncmpcpp
+F9 + ctrl
+	pamixer --toggle-mute && kill -$((10 + 34)) $(pidof dwmblocks)
+F10 + ctrl + { , shift}
+	pamixer --decrease {5, 1} && kill -$((10 + 34)) $(pidof dwmblocks)
+F11 + ctrl + { , shift}
+	pamixer --increase {5, 1} && kill -$((10 + 34)) $(pidof dwmblocks)
+F12 + super
+	alacritty -e pulsemixer

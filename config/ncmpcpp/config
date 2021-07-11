@@ -1,0 +1,8 @@
+# vim: filetype=conf
+
+ncmpcpp_directory = "~/.config/ncmpcpp"
+lyrics_directory = "~/.local/share/lyrics"
+mpd_music_dir = "~/music"
+
+external_editor = nvim
+use_console_editor = yes

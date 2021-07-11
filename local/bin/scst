@@ -1,0 +1,11 @@
+#!/bin/sh
+# scst [file]
+#
+# Take a screenshot and save it as a PNG file. If the file name is not
+# specified, it defaults to "image.png".
+
+file="${1:-image.png}"
+
+maim --hidecursor --select --nokeyboard |
+	tee "$file" |
+	xclip -selection clipboard -t image/png
